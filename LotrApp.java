@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -26,10 +28,15 @@ public class LotrApp {
 	
 	/** The name of the table we are testing with */
 	private final String tableName = "JDBC_TEST";
+
+	private final Readable rd;
+    private final Appendable ap;
 	
-  public LotrApp(String username, String password) {
+  public LotrApp(String username, String password, Readable rd, Appendable ap) {
     this.userName = username;
     this.password = password;
+    this.rd = rd;
+    this.ap = ap;
   }
 
 	/**
@@ -73,7 +80,7 @@ public class LotrApp {
 	/**
 	 * Connect to MySQL and do some stuff.
 	 */
-	public void run() {
+	public void run() throws IOException {
 
 		// Connect to MySQL
     Connection conn = null;
@@ -82,9 +89,9 @@ public class LotrApp {
     }
     catch (SQLException e1) {
       // TODO Auto-generated catch block
-      System.out.println("Had an issue connecting! Check your user / password");
+     this.ap.append("Had an issue connecting! Check your user / password");
     }
-    Scanner scan = new Scanner(System.in);
+    Scanner scan = new Scanner(this.rd);
     String chosenChar = "";
 
 		// Create a table
@@ -99,18 +106,21 @@ public class LotrApp {
         lotrchars.add(characterNames.getString(1));
       }
 
-      System.out.println("Enter your character name here:");
+      this.ap.append("Enter your character name here:");
       chosenChar = scan.next();
+
       while (!lotrchars.contains(chosenChar)) {
-        System.out.println(
-            "Sorry, that character is not in our database. Please specify a character name with the first letter capitalized.");
-        chosenChar = scan.next();
+              this.ap.append("Sorry, that character is not in our database. Please specify a character name with the first " +
+                      "letter capitalized.");
+              chosenChar = scan.next();
       }
 
     }
     catch (SQLException e) {
-      System.out.println("ERROR: Could not fetch character names :/");
-      return;
+      throw new IllegalArgumentException("ERROR: Could not fetch character names :/");
+    }
+    catch(IOException e) {
+        throw new IllegalArgumentException("Had issues printing the output");
     }
 
     try {
@@ -119,55 +129,36 @@ public class LotrApp {
       track_character.setString(1, chosenChar);
       ResultSet res = track_character.executeQuery();
       while (res.next()) {
-        System.out.print(res.getString(1));
-        System.out.print(" ");
-        System.out.print(res.getString(2));
-        System.out.print(" ");
-        System.out.print(res.getString(3));
-        System.out.print(" ");
-        System.out.print(res.getString(4));
-        System.out.println(" ");
+       this.ap.append(res.getString(1));
+       this.ap.append(" ");
+       this.ap.append(res.getString(2));
+       this.ap.append(" ");
+       this.ap.append(res.getString(3));
+       this.ap.append(" ");
+       this.ap.append(res.getString(4));
+       this.ap.append(" ");
       }
 
-      System.out.println("");
-      System.out.println("Closing connection now");
+      this.ap.append("");
+      this.ap.append("Closing connection now");
       conn.close();
 
     }
     catch (SQLException e) {
-      System.out.println("ERROR: Had issue executing track_character function");
+      this.ap.append("ERROR: Had issue executing track_character function");
     }
-		
-		
+    catch(IOException e){
 		// Drop the table
 	}
 	
-  public String charChoose() {
+ /* public String charChoose() {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter a character's name: ");
     String charchoose = scanner.nextLine();
     return charchoose;
 
-  }
+  } */
 
-	/**
-	 * Connect to the DB and do some stuff
-	 */
-	public static void main(String[] args) {
-    String username = "root";
-    String password = "root";
-    String charname = "";
-    try (Scanner scan = new Scanner(System.in)) {
-      System.out.print("Enter username: ");
-      username = scan.nextLine();
-      System.out.print("Enter password: ");
-      password = scan.nextLine();
-      System.out.print("Thank you! Connecting now...");
-      LotrApp app = new LotrApp(username, password);
-      app.run();
-      System.out.println("Thank you! Program ending now.");
-      System.exit(0);
-    }
 
 	}
 }
