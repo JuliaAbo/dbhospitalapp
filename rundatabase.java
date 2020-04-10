@@ -6,7 +6,7 @@ public class rundatabase {
 
     public static void main(String[] args) {
         String username = "root";
-        String password = "root";
+        String password = "Remus876";
         String charname = "";
         Readable in = new InputStreamReader(System.in);
         Appendable out = System.out;
@@ -16,7 +16,7 @@ public class rundatabase {
             out.append("Enter password: ");
             password = scan.nextLine();
             out.append("Thank you! Connecting now...");
-            LotrApp app = new LotrApp(username, password, in, out);
+            HospitalApp app = new HospitalApp(username, password, in, out);
             app.run();
             //System.out.println("Thank you! Program ending now.");
             //System.exit(0);

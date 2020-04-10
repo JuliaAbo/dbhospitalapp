@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class LotrApp {
+public class HospitalApp {
 
 	/** The name of the MySQL account to use (or empty for anonymous) */
   private String userName;
@@ -24,7 +24,7 @@ public class LotrApp {
 	private final int portNumber = 3306;
 
 	/** The name of the database we are testing with (this default is installed with MySQL) */
-  private final String dbName = "lotrfinalAbouelheigaJ";
+  private final String dbName = "mydb";
 	
 	/** The name of the table we are testing with */
 	private final String tableName = "JDBC_TEST";
@@ -32,7 +32,7 @@ public class LotrApp {
 	private final Readable rd;
     private final Appendable ap;
 	
-  public LotrApp(String username, String password, Readable rd, Appendable ap) {
+  public HospitalApp(String username, String password, Readable rd, Appendable ap) {
     this.userName = username;
     this.password = password;
     this.rd = rd;
@@ -51,10 +51,9 @@ public class LotrApp {
 		connectionProps.put("user", this.userName);
 		connectionProps.put("password", this.password);
 
-		conn = DriverManager.getConnection("jdbc:mysql://"
-				+ this.serverName + ":" + this.portNumber + "/" + this.dbName,
+    conn = DriverManager.getConnection("jdbc:mysql://"
+				+ this.serverName + ":" + this.portNumber + "/" + this.dbName+"?useSSL=false",
 				connectionProps);
-
 		return conn;
 	}
 
@@ -97,33 +96,78 @@ public class LotrApp {
 		// Create a table
     // Create a table
     try {
-      String characters = "SELECT character_name FROM lotr_character";
-      Statement statement = conn.createStatement();
-      ResultSet characterNames = statement.executeQuery(characters);
-      ArrayList<String> lotrchars = new ArrayList<String>();
+      this.ap.append("Thanks for connecting! For a list of commands you can type 'h' or 'help'");
+      while (scan.hasNext()) {
+        String command = scan.next();
+        if (command.equals("add_doctor")) {
+          // temporary filler so we can see what we want to do
+          this.ap.append("You would like to add a doctor");
+        } else if (command.equals("h") || command.equals("help")) {
+          this.ap.append("You need help!");
+        }
+        else if (command.equals("q") || command.equals("quit")) {
+          this.ap.append("You've decided to quit! Thank you for using the application!");
+          conn.close();
+          break;
+        } else if (command.equals("s") || command.equals("supply")) {
+          //this.ap.append("You've decided to quit! Thank you for using the application!");
+          String supply = "SELECT * FROM Supply";
+          Statement statement = conn.createStatement();
+          ResultSet supplyset = statement.executeQuery(supply);
+          ArrayList<String> supplies = new ArrayList<String>();
+          while (supplyset.next()) {
+            supplies.add(supplyset.getString(1));
+            supplies.add(supplyset.getString(2));
+          }
+          for(String each: supplies){
+            this.ap.append(each.toString());
+          }
+          conn.close();
+          break;
+        }
+        else {
+          String characters = "SELECT character_name FROM lotr_character";
+          Statement statement = conn.createStatement();
+          ResultSet characterNames = statement.executeQuery(characters);
+          ArrayList<String> lotrchars = new ArrayList<String>();
+          while (characterNames.next()) {
+            lotrchars.add(characterNames.getString(1));
+          }
 
-      while (characterNames.next()) {
-        lotrchars.add(characterNames.getString(1));
-      }
 
-      this.ap.append("Enter your character name here:");
-      chosenChar = scan.next();
+          this.ap.append("Enter your character name here:");
+          chosenChar = scan.next();
 
-      while (!lotrchars.contains(chosenChar)) {
-              this.ap.append("Sorry, that character is not in our database. Please specify a character name with the first " +
-                      "letter capitalized.");
-              chosenChar = scan.next();
-      }
-
+          while (!lotrchars.contains(chosenChar)) {
+            this.ap.append("Sorry, that character is not in our database. Please specify a character name with the first " +
+                    "letter capitalized.");
+            chosenChar = scan.next();
+          }
+          try {
+            String callFunction = "{CALL track_character(?)}";
+            java.sql.CallableStatement track_character = conn.prepareCall(callFunction);
+            track_character.setString(1, chosenChar);
+            ResultSet res = track_character.executeQuery();
+            while (res.next()) {
+              this.ap.append(res.getString(1));
+              this.ap.append(" ");
+              this.ap.append(res.getString(2));
+              this.ap.append(" ");
+              this.ap.append(res.getString(3));
+              this.ap.append(" ");
+              this.ap.append(res.getString(4));
+              this.ap.append(" ");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
     }
-    catch (SQLException e) {
-      throw new IllegalArgumentException("ERROR: Could not fetch character names :/");
-    }
-    catch(IOException e) {
-        throw new IllegalArgumentException("Had issues printing the output");
-    }
 
-    try {
+
+    /*try {
       String callFunction = "{CALL track_character(?)}";
       java.sql.CallableStatement track_character = conn.prepareCall(callFunction);
       track_character.setString(1, chosenChar);
@@ -140,8 +184,10 @@ public class LotrApp {
       }
 
       this.ap.append("");
-      this.ap.append("Closing connection now");
-      conn.close();
+      //this.ap.append("Closing connection now");
+      //conn.close();
+
+     */
 
     }
     catch (SQLException e) {
