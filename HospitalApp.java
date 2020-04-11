@@ -96,20 +96,44 @@ public class HospitalApp {
 		// Create a table
     // Create a table
     try {
-      this.ap.append("Thanks for connecting! For a list of commands you can type 'h' or 'help'");
+      this.ap.append("Welcome to Your Hospital Management system! For a list of available commands " +
+              "you can type 'h' or 'help'");
+      this.ap.append("\n");
       while (scan.hasNext()) {
         String command = scan.next();
         if (command.equals("add_doctor")) {
           // temporary filler so we can see what we want to do
           this.ap.append("You would like to add a doctor");
         } else if (command.equals("h") || command.equals("help")) {
-          this.ap.append("You need help!");
+           this.ap.append("To use the system to edit your hospital records, you can enter one of the following to get" +
+                   "options for that element of the system.");
+          this.ap.append("\n");
+            this.ap.append("appointments");
+            this.ap.append("\n");
+            this.ap.append("patient");
+            this.ap.append("\n");
+            this.ap.append("employee");
+            this.ap.append("\n");
+            this.ap.append("treatment");
+            this.ap.append("\n");
+            this.ap.append("supply");
+            this.ap.append("\n");
+            this.ap.append("Use 'q' or 'quit' to quit the application");
+            this.ap.append("\n");
         }
         else if (command.equals("q") || command.equals("quit")) {
           this.ap.append("You've decided to quit! Thank you for using the application!");
           conn.close();
           break;
-        } else if (command.equals("s") || command.equals("supply")) {
+        } else if (command.equals("appointments")) {
+            this.ap.append("You've decided to work on your appointments! Here are commands to do so:");
+            this.ap.append("\n");
+            this.ap.append("'schedule' -schedules an appointment. Include id, Dr., Patient, Nurse, date/ time fields ");
+            this.ap.append("'edit' -edits an appointment. Include all necessary elements of the appointment.");
+            this.ap.append("\n");
+        }
+
+        else if (command.equals("s") || command.equals("supply")) {
           //this.ap.append("You've decided to quit! Thank you for using the application!");
           String supply = "SELECT * FROM Supply";
           Statement statement = conn.createStatement();
