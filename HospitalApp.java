@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.Scanner;
 
+
 import dnl.utils.text.table.TextTable;
+import functions.functionDictionary;
 
 
 public class HospitalApp {
@@ -55,7 +57,6 @@ public class HospitalApp {
       conn = this.getConnection();
     }
     catch (SQLException e1) {
-      // TODO Auto-generated catch block
     }
     this.scan = new Scanner(this.rd);
     this.commands = new functionDictionary(this.ap, conn, this.scan);
@@ -116,10 +117,11 @@ public class HospitalApp {
 
     try {
       this.ap.append("Welcome to Your Hospital Management system! For a list of available commands " +
-              "you can type 'h' or 'help'");
+              "you can type 'help'");
       this.ap.append("\n");
       while (scan.hasNext()) {
-        String command = scan.next();
+
+      	String command = scan.next();
         // Check if the user input is a valid command
         if(this.commands.functions.containsKey(command)) {
           // run the function for that command
