@@ -20,10 +20,10 @@ public class getEmployees implements IFunc {
     try {
       this.ap.append("Here's all the supplies in your system: ");
       this.ap.append("\n");
-      String arg = "{CALL getSupplies}";
+      String arg = "{CALL getEmployees}";
       java.sql.CallableStatement supplyFunc = this.conn.prepareCall(arg);
       ResultSet res = supplyFunc.executeQuery();
-      this.ap.append("Id, Supply, Remaining");
+      this.ap.append("Id, Name, Phonenum, Gender, Type");
       this.ap.append("\n");
       while(res.next()){
         this.ap.append(res.getString(1));
@@ -31,6 +31,10 @@ public class getEmployees implements IFunc {
         this.ap.append(res.getString(2));
         this.ap.append(", ");
         this.ap.append(res.getString(3));
+        this.ap.append(", ");
+        this.ap.append(res.getString(4));
+        this.ap.append(", ");
+        this.ap.append(res.getString(5));
         this.ap.append("\n");
       }
 

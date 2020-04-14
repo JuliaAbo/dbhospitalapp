@@ -57,7 +57,36 @@ public class functionDictionary {
     functions.put("update_appointment", new updateAppointment(ap, conn, scan));
     functions.put("delete_appointment", new deleteAppointment(ap, conn, scan));
 
+    // Functions on Employees
 
+    functions.put("get_employees", new getEmployees(ap, conn));
+    functions.put("get_employee", new getEmployee(ap, conn, scan));
+    functions.put("add_employee", new addEmployee(ap, conn, scan));
+    functions.put("delete_employee", new deleteEmployee(ap, conn, scan));
+    functions.put("update_employee", new updateEmployee(ap, conn, scan));
+
+    // functions on Doctors
+    functions.put("get_doctors", new getDoctors(ap, conn));
+    functions.put("get_doctor", new getDoctor(ap, conn, scan));
+    functions.put("add_doctor", new addDoctor(ap, conn, scan));
+    functions.put("update_doctor", new updateDoctor(ap, conn, scan));
+    functions.put("delete_doctor", new deleteDoctor(ap, conn, scan));
+
+    // Functions on Patient
+
+    functions.put("get_patients", new getPatients(ap, conn));
+    functions.put("get_patient", new getPatient(ap, conn, scan));
+    functions.put("add_patient", new addPatient(ap, conn, scan));
+    functions.put("update_patient", new updatePatient(ap, conn, scan));
+    functions.put("delete_patient", new deletePatient(ap, conn, scan));
+
+    //Functions on Diagnosis
+
+    functions.put("get_all_diagnosis", new getAllDiagnosis(ap, conn));
+    functions.put("get_diagnosis", new getDiagnosis(ap, conn, scan));
+    functions.put("add_diagnosis", new addDiagnosis(ap, conn, scan));
+    functions.put("update_diagnosis", new updateDiagnosis(ap, conn, scan));
+    functions.put("delete_diagnosis", new deleteDiagnosis(ap, conn, scan));
 
 
 

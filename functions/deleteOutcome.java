@@ -22,7 +22,7 @@ public class deleteOutcome implements IFunc {
     try {
       this.ap.append("You've decided to delete information about one of your outcomes");
       this.ap.append("\n");
-      this.ap.append("Please enter the arguments for the treatment you would like to delete as following and press enter:");
+      this.ap.append("Please enter the arguments for the what you would like to delete as following and press enter:");
       this.ap.append("\n");
       this.ap.append("Outcome_id");
       this.ap.append("\n");
