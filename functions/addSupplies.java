@@ -11,7 +11,7 @@ class addSupplies implements IFunc {
   Connection conn;
   Scanner scan;
 
-  public addSupplies(Appendable ap, Connection conn, Scanner scan){
+  public addSupplies(Appendable ap, Connection conn, Scanner scan) {
     this.ap = ap;
     this.conn = conn;
     this.scan = scan;
@@ -33,17 +33,22 @@ class addSupplies implements IFunc {
       String arg3 = this.scan.next();
       String args = arg1.concat(" ").concat(arg2).concat(" ").concat(arg3);
 
-      String call = "{CALL addSupplies(?,?,?)}";
-      String[] arguments = args.split(" ");
-      java.sql.CallableStatement supplyFunc = this.conn.prepareCall(call);
-      supplyFunc.setString(1, arguments[0]);
-      supplyFunc.setString(2, arguments[1]);
-      supplyFunc.setString(3, arguments[2]);
-      ResultSet res = supplyFunc.executeQuery();
-      this.ap.append("Updated table. To see new result, type 'get_supplies'");
-    } catch(IOException | SQLException e){
+      if (new validateSupplyID(this.ap, this.conn).apply(arg1)) {
+        this.ap.append("You have tried to add a supply that already exists. please try again. Re-type 'add_supplies'");
+        this.ap.append("\n");
+      } else {
+
+        String call = "{CALL addSupplies(?,?,?)}";
+        String[] arguments = args.split(" ");
+        java.sql.CallableStatement supplyFunc = this.conn.prepareCall(call);
+        supplyFunc.setString(1, arguments[0]);
+        supplyFunc.setString(2, arguments[1]);
+        supplyFunc.setString(3, arguments[2]);
+        ResultSet res = supplyFunc.executeQuery();
+        this.ap.append("Updated table. To see new result, type 'get_supplies'");
+      }
+    } catch (IOException | SQLException e) {
       System.out.print("Something is wrong with your input. Be sure that you're inputting a string with spaces that has a number for the id, a number for the quantity remaining, and then a name. Format it like this: '2 25 name'");
     }
-
   }
 }

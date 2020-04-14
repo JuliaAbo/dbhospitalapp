@@ -23,7 +23,7 @@ public class supply implements IFunc {
       this.ap.append("\n");
       this.ap.append("get_treat_supply (int treatment)  gets information for supplies needed for a specific treatment");
       this.ap.append("\n");
-      this.ap.append("'low_supply' gets what supplies are under 25% stocked");
+      this.ap.append("'low_supply' gets what supplies have under 5 units stocked");
       this.ap.append("\n");
     } catch(IOException e){
       System.out.print("had issue writing to system.out");

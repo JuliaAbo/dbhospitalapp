@@ -34,7 +34,7 @@ public class HospitalApp {
 	private final int portNumber = 3306;
 
 	/** The name of the database we are testing with (this default is installed with MySQL) */
-  private final String dbName = "mydb";
+  private final String dbName = "mydb2";
 	
 	/** The name of the table we are testing with */
 	private final String tableName = "JDBC_TEST";
@@ -111,7 +111,8 @@ public class HospitalApp {
     }
     catch (SQLException e1) {
       // TODO Auto-generated catch block
-     this.ap.append("Had an issue connecting! Check your user / password");
+     this.ap.append("Had an issue connecting! Check your user / password and try again after restarting");
+     System.exit(0);
     }
     String chosenChar = "";
 

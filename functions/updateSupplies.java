@@ -28,22 +28,29 @@ public class updateSupplies implements IFunc {
       this.ap.append("\n");
       this.ap.append("id remaining_number name");
       this.ap.append("\n");
-      this.ap.append("\n");
-      this.ap.append("\n");
+
       String arg1 = this.scan.next();
       String arg2 = this.scan.next();
       String arg3 = this.scan.next();
       String args = arg1.concat(" ").concat(arg2).concat(" ").concat(arg3);
 
-      String call = "{CALL updateSupplies(?,?,?)}";
-      String[] arguments = args.split(" ");
-      java.sql.CallableStatement supplyFunc = this.conn.prepareCall(call);
-      supplyFunc.setString(1, arguments[0]);
-      supplyFunc.setString(2, arguments[1]);
-      supplyFunc.setString(3, arguments[2]);
-      ResultSet res = supplyFunc.executeQuery();
-      this.ap.append("Updated table. To see new result, type 'get_supplies'");
-      this.ap.append("\n");
+      if(!new validateSupplyID(this.ap, this.conn).apply(arg1)) {
+        this.ap.append("You have input an incorrect supply id, please try again. Re-type 'update_supplies'");
+        this.ap.append("\n");
+      }
+      else {
+        String call = "{CALL updateSupplies(?,?,?)}";
+        String[] arguments = args.split(" ");
+        java.sql.CallableStatement supplyFunc = this.conn.prepareCall(call);
+        supplyFunc.setString(1, arguments[0]);
+        supplyFunc.setString(2, arguments[1]);
+        supplyFunc.setString(3, arguments[2]);
+        ResultSet res = supplyFunc.executeQuery();
+        this.ap.append("\n");
+        this.ap.append("\n");
+        this.ap.append("Updated table. To see new result, type 'get_supplies'");
+        this.ap.append("\n");
+      }
     } catch(IOException | SQLException e){
       System.out.print("Something is wrong with your input. Be sure that you're inputting a string with spaces that has a number for the id, a number for the quantity remaining, and then a name. Format it like this: '2 25 name'");
     }
