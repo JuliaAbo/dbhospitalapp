@@ -24,14 +24,13 @@ class addTreatment implements IFunc {
       this.ap.append("\n");
       this.ap.append("Please enter the arguments for the treatment you would like to add as following and press enter:");
       this.ap.append("\n");
-      this.ap.append("id doctor_id");
+      this.ap.append("id doctor_id description");
       this.ap.append("\n");
       this.ap.append("\n");
       this.ap.append("\n");
       String arg1 = this.scan.next();
       String arg2 = this.scan.next();
-      this.ap.append("Now please enter a brief description of the treatment");
-      String arg3 = scan.next();
+      String arg3 = scan.nextLine();
 
       if (new validateTreatmentID(this.ap, this.conn).apply(arg1)) {
         this.ap.append("This treatment already exists.");

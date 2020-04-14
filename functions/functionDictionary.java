@@ -41,6 +41,25 @@ public class functionDictionary {
     functions.put("get_treatment", new getTreatment(ap, conn, scan));
     functions.put("update_treatment", new updateTreatment(ap, conn, scan));
 
+    // Functions operating on the Outcomes table
+
+    functions.put("get_outcomes", new getOutcomes(ap, conn));
+    functions.put("get_outcome", new getOutcome(ap, conn, scan));
+    functions.put("add_outcome", new addOutcome(ap, conn, scan));
+    functions.put("update_outcome", new updateOutcome(ap, conn, scan));
+    functions.put("delete_outcome", new deleteOutcome(ap, conn, scan));
+
+    // Functions operating on the Appointments table
+
+    functions.put("get_appointments", new getAppointments(ap, conn));
+    functions.put("get_appointment", new getAppointment(ap, conn, scan));
+    functions.put("add_appointment", new addAppointment(ap, conn, scan));
+    functions.put("update_appointment", new updateAppointment(ap, conn, scan));
+    functions.put("delete_appointment", new deleteAppointment(ap, conn, scan));
+
+
+
+
 
   }
 
