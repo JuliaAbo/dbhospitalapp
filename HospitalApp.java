@@ -15,7 +15,6 @@ import java.util.Properties;
 import java.util.Scanner;
 
 
-import dnl.utils.text.table.TextTable;
 import functions.functionDictionary;
 
 

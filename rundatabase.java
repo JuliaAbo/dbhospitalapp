@@ -6,7 +6,7 @@ public class rundatabase {
 
     public static void main(String[] args) {
         String username = "root";
-        String password = "Remus876";
+        String password = "root";
         String charname = "";
         Readable in = new InputStreamReader(System.in);
         Appendable out = System.out;
