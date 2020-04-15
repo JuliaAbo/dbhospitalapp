@@ -49,7 +49,7 @@ class addOutcome implements IFunc {
       }
     }
      catch (IOException | SQLException e) {
-      System.out.print("Something is wrong with your input. Be sure that you're inputting a string with spaces that has a number for the id, a number for the treatment id, and then a description. Format it like this: 'id tid desc'");
+      System.out.print("Something is wrong with your input. Be sure that you're inputting what is specified and try running the command again.");
     }
   }
 }

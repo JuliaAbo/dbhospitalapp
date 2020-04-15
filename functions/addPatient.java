@@ -39,8 +39,6 @@ class addPatient implements IFunc {
       String arg6 = this.scan.nextLine();
       this.ap.append("InsuranceID\n");
       String arg7 = this.scan.nextLine();
-      //this.ap.append("\n");
-      //this.ap.append("\n");
       if(new validatePatientID(this.ap, this.conn).apply(arg1)){
         this.ap.append("This patient already exists, try updating");
       }

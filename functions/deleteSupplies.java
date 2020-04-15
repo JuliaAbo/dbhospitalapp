@@ -36,7 +36,7 @@ public class deleteSupplies implements IFunc {
       ResultSet res = supplyFunc.executeQuery();
       this.ap.append("Updated table. To see new result, type 'get_supplies'");
     } catch(IOException | SQLException e){
-      System.out.print("Something is wrong with your input. Be sure that you're inputting a string with spaces that has a number for the id, a number for the quantity remaining, and then a name. Format it like this: 'id remaining_number name'");
+      System.out.print("Something is wrong with your input. Be sure that you're inputting the correct arguments. Try re-starting the command. ");
     }
 
   }

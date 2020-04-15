@@ -20,9 +20,9 @@ public class deleteDoctor implements IFunc {
   @Override
   public void apply() {
     try {
-      this.ap.append("You've decided to delete information about one of your employees");
+      this.ap.append("You've decided to delete information about one of your doctors");
       this.ap.append("\n");
-      this.ap.append("Please enter the arguments for the employee you would like to delete as following and press enter:");
+      this.ap.append("Please enter the arguments for the doctor you would like to delete as following and press enter:");
       this.ap.append("\n");
       this.ap.append("id");
       this.ap.append("\n");
@@ -36,7 +36,7 @@ public class deleteDoctor implements IFunc {
         ResultSet res = supplyFunc.executeQuery();
         this.ap.append("Deleted desired outcome. To see new result, type 'get_doctors'");
       } else {
-        this.ap.append("You did not give a valid employee id");
+        this.ap.append("You did not give a valid doctor id");
       }
     } catch(IOException | SQLException e){
       System.out.print("Something is wrong with your input. Be sure that you're inputting a string that has a number for the id. You may need to re-run your command.'");

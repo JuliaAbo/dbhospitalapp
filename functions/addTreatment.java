@@ -50,7 +50,7 @@ class addTreatment implements IFunc {
       }
     }
      catch (IOException | SQLException e) {
-      System.out.print("Something is wrong with your input. Be sure that you're inputting a string with spaces that has a number for the id, a number for the quantity remaining, and then a name. Format it like this: '2 25 name'");
+      System.out.print("Something is wrong with your input. Be sure that you're inputting the correct arguments. Try re-starting the command. ");
     }
   }
 }

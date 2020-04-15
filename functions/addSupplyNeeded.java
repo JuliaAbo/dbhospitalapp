@@ -23,7 +23,7 @@ class addSupplyNeeded implements IFunc {
     try {
       this.ap.append("You've decided to link a supply to a treatment");
       this.ap.append("\n");
-      this.ap.append("Please enter the arguments for the supply you would like to add as following and press enter:");
+      this.ap.append("Please enter the arguments for the new supply needed link you would like to add as following and press enter:");
       this.ap.append("\n");
       this.ap.append("supply_id treatment_id");
       this.ap.append("\n");
@@ -46,7 +46,7 @@ class addSupplyNeeded implements IFunc {
         this.ap.append("Updated table. To see new result, type 'get_supp_needed'");
       }
     } catch (IOException | SQLException e) {
-      System.out.print("Something is wrong with your input. Be sure that you're inputting a string with spaces that has a number for the id, a number for the quantity remaining, and then a name. Format it like this: '2 25 name'");
+      System.out.print("Something is wrong with your input. Be sure that you're inputting as specified and try re-starting the command.'");
     }
 
   }

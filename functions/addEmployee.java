@@ -25,7 +25,7 @@ class addEmployee implements IFunc {
     try {
       this.ap.append("You've decided to add a new employee");
       this.ap.append("\n");
-      this.ap.append("Please enter the arguments for the appointment you would like to add as following and press enter:");
+      this.ap.append("Please enter the arguments for the employee you would like to add as following and press enter:");
       this.ap.append("\n");
       this.ap.append("ID Phonenum(9 digits) Gender JobType Name");
       this.ap.append("\n");

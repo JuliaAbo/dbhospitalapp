@@ -31,7 +31,7 @@ class addDoctor implements IFunc {
       String arg1 = this.scan.next();
       String arg2 = this.scan.nextLine();
       if(!new validateEmployee(this.ap, this.conn).apply(arg1)){
-        this.ap.append("This employee does not already exist, try adding employee first");
+        this.ap.append("This employee does not already exist, try adding employee first and then add as a doctor");
       } else if(new validateDoctorID(this.ap, this.conn).apply(arg1)){
         this.ap.append("This doctor already exists, try updating");
       }

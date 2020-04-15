@@ -20,7 +20,7 @@ public class deleteSupplyNeeded implements IFunc {
   @Override
   public void apply() {
     try {
-      this.ap.append("You've decided to delete information about one of your supplies");
+      this.ap.append("You've decided to delete information about one of your supplies-treatment links");
       this.ap.append("\n");
       this.ap.append("Please enter the arguments for the supply you would like to delete as following and press enter:");
       this.ap.append("\n");
@@ -38,7 +38,7 @@ public class deleteSupplyNeeded implements IFunc {
       ResultSet res = supplyFunc.executeQuery();
       this.ap.append("Deleted desired pairing. To see new result, type 'get_supp_needed'");
     } catch(IOException | SQLException e){
-      System.out.print("Something is wrong with your input. Be sure that you're inputting a string with spaces that has a number for the id, a number for the quantity remaining, and then a name. Format it like this: 'Sid Tid'");
+      System.out.print("Something is wrong with your input. Be sure that you're inputting the correct arguments. Try re-starting the command. ");
     }
 
   }
